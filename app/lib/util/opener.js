@@ -5,18 +5,18 @@ const tslib_1 = require("tslib");
  * fork from https://github.com/domenic/opener
  */
 const child_process_1 = tslib_1.__importDefault(require("child_process"));
-const os_1 = tslib_1.__importDefault(require("os"));
 module.exports = function opener(args, tool) {
     let platform = process.platform;
     args = [].concat(args);
+    // WSL2 with WSLg 
     // Attempt to detect Windows Subystem for Linux (WSL).
     // WSL  itself as Linux (which works in most cases), but in
     // this specific case we need to treat it as actually being Windows.
     // The "Windows-way" of opening things through cmd.exe works just fine here,
     // whereas using xdg-open does not, since there is no X Windows in WSL.
-    if (platform === 'linux' && os_1.default.release().toLowerCase().indexOf('microsoft') !== -1) {
-        platform = 'win32';
-    }
+    // if (platform === 'linux' && os.release().toLowerCase().indexOf('microsoft') !== -1) {
+    //   platform = 'win32'
+    //}
     // http://stackoverflow.com/q/1480971/3191, but see below for Windows.
     let command;
     switch (platform) {
